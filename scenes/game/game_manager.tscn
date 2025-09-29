@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=3 uid="uid://co7kf3cm060w1"]
+
+[ext_resource type="Script" path="res://scripts/game/GameManager.gd" id="1_1vpux"]
+[ext_resource type="Script" path="res://scripts/game/TurnUI.gd" id="2_noacw"]
+[ext_resource type="Script" path="res://scenes/game/HandDisplay.gd" id="2_s7pfq"]
+
+[node name="GameManager" type="Node2D"]
+script = ExtResource("1_1vpux")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HandContainer" type="HBoxContainer" parent="UI"]
+offset_left = 336.0
+offset_top = 504.0
+offset_right = 860.0
+offset_bottom = 592.0
+
+[node name="Node" type="Node" parent="UI/HandContainer"]
+script = ExtResource("2_s7pfq")
+
+[node name="PlayerInfo" type="Panel" parent="UI"]
+offset_left = 12.0
+offset_top = 440.0
+offset_right = 257.0
+offset_bottom = 638.0
+
+[node name="GameLog" type="RichTextLabel" parent="UI"]
+offset_left = 962.0
+offset_top = 7.0
+offset_right = 1146.0
+offset_bottom = 390.0
+
+[node name="TurnUI" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 37.0
+offset_top = 32.0
+offset_right = 37.0
+offset_bottom = 32.0
+script = ExtResource("2_noacw")
+
+[node name="PhaseLabel" type="Label" parent="UI/TurnUI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Phase"
+
+[node name="TurnLabel" type="Label" parent="UI/TurnUI"]
+layout_mode = 0
+offset_top = 28.0
+offset_right = 40.0
+offset_bottom = 51.0
+text = "Turn"
+
+[node name="PassButton" type="Button" parent="UI/TurnUI"]
+layout_mode = 0
+offset_left = -21.0
+offset_top = 56.0
+offset_right = 60.0
+offset_bottom = 87.0
+text = "Pass turn"
+
+[node name="Camera2D" type="Camera2D" parent="UI"]
+anchor_mode = 0
+
+[node name="Board" type="Node2D" parent="."]
+
+[connection signal="pressed" from="UI/TurnUI/PassButton" to="UI/TurnUI" method="_on_pass_button_pressed"]
