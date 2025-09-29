@@ -1,7 +1,7 @@
 extends Control
 class_name HandDisplay
 
-@onready var hand_container: HBoxContainer = $HandContainer
+@onready var hand_container: HBoxContainer = $"../OpponentHand/HandContainer"
 @onready var card_scene = preload("res://scenes/cards/Card.tscn")
 
 var player: Player

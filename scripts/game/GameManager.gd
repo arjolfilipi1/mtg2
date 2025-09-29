@@ -1,5 +1,8 @@
 extends Node
 class_name GameManager
+# Add these variables
+@onready var hand_display: HandDisplay = $UI/CurrentPlayerHand
+@onready var opponent_hand_display: HandDisplay = $UI/OpponentHand
 
 signal phase_changed(new_phase: int)
 signal turn_started(player_index: int)
@@ -25,6 +28,7 @@ var is_waiting_for_response: bool = false
 func _ready():
 	initialize_game()
 	start_game_with_opening_hands()
+	setup_hand_displays()
 	start_turn()
 	
 func _process(delta):
@@ -32,6 +36,17 @@ func _process(delta):
 		current_phase_timer -= delta
 		if current_phase_timer <= 0:
 			advance_phase()
+
+# NEW: Setup hand displays
+func setup_hand_displays():
+	# Setup current player's hand display
+	if hand_display:
+		hand_display.setup(get_current_player())
+	
+	# Setup opponent's hand display (face down)
+	if opponent_hand_display:
+		opponent_hand_display.setup(get_opposing_player())
+		# You might want to show opponent's hand as face down cards
 
 func initialize_game():
 	# Setup players and decks
@@ -270,14 +285,28 @@ func get_next_phase(current_phase: int) -> int:
 		TurnPhases.CLEANUP_STEP: return TurnPhases.UNTAP_STEP
 		_: return TurnPhases.UNTAP_STEP
 
+
+
+# In the end_turn function, update hand displays when player changes
 func end_turn():
 	emit_signal("turn_ended", current_player_index)
+	
+	print("=== Turn %d ended for %s ===" % [turn_count, get_current_player().player_name])
+	print("Hand size: %d, Battlefield: %d, Library: %d" % [
+		get_current_player().hand.size(),
+		get_current_player().battlefield.size(), 
+		get_current_player().library.size()
+	])
 	
 	# Switch to next player
 	current_player_index = (current_player_index + 1) % players.size()
 	priority_player_index = current_player_index
 	
+	# Update hand displays for new current player
+	setup_hand_displays()
+	
 	start_turn()
+	
 func start_game_with_opening_hands():
 	print("=== Setting up opening hands ===")
 	
@@ -345,3 +374,13 @@ func update_ui():
 	# Update the game UI to reflect current state
 	print("Current Phase: %s" % TurnPhases.get_phase_name(current_phase))
 	print("Current Player: %s" % get_current_player().player_name)
+	
+	# Update hand displays
+	if hand_display:
+		hand_display.update_hand_display()
+	if opponent_hand_display:
+		opponent_hand_display.update_hand_display()
+	
+	# Show hand sizes
+	print("Player hand: %d cards" % get_current_player().hand.size())
+	print("Opponent hand: %d cards" % get_opposing_player().hand.size())
