@@ -4,19 +4,21 @@
 [ext_resource type="Script" path="res://scripts/cards/Card.gd" id="1_io6tm"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_sg841"]
+font_size = 9
 font_color = Color(0, 0, 0, 1)
 outline_size = 1
 outline_color = Color(0.351563, 0.351563, 0.351563, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_mbo1j"]
+font_size = 9
 font_color = Color(0, 1, 1, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_5oijt"]
-font_size = 8
+font_size = 6
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_4inu1"]
-font_size = 12
+font_size = 8
 font_color = Color(0, 0, 0, 1)
 
 [node name="Card" type="Area2D"]
@@ -41,55 +43,56 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_atuvg")
 
-[node name="BackGround" type="ColorRect" parent="CardUI"]
+[node name="Background" type="ColorRect" parent="CardUI"]
 layout_mode = 0
-offset_left = -80.0
-offset_top = -110.0
-offset_right = 120.0
-offset_bottom = 150.0
+offset_left = -29.0
+offset_top = -43.0
+offset_right = 71.0
+offset_bottom = 87.0
 
 [node name="NameLabel" type="Label" parent="CardUI"]
 layout_mode = 0
-offset_left = -75.0
-offset_top = -107.0
-offset_right = 118.0
-offset_bottom = -80.0
+offset_left = -27.0
+offset_top = -40.0
+offset_right = 24.0
+offset_bottom = -23.0
 text = " That guy"
 label_settings = SubResource("LabelSettings_sg841")
 
 [node name="ManaCostLabel" type="Label" parent="CardUI"]
 layout_mode = 0
-offset_left = 75.0
-offset_top = -109.0
-offset_right = 115.0
-offset_bottom = -86.0
+offset_left = 45.0
+offset_top = -38.0
+offset_right = 66.0
+offset_bottom = -24.0
 text = "3w"
 label_settings = SubResource("LabelSettings_mbo1j")
 horizontal_alignment = 1
 
 [node name="TypeLabel" type="Label" parent="CardUI"]
 layout_mode = 0
-offset_left = -59.0
-offset_top = 23.0
-offset_right = 97.0
-offset_bottom = 46.0
+offset_left = -23.0
+offset_top = 21.0
+offset_right = 65.0
+offset_bottom = 30.0
 text = "Dragon"
 label_settings = SubResource("LabelSettings_5oijt")
 
 [node name="RulesText" type="Label" parent="CardUI"]
-offset_left = -71.0
-offset_top = 46.0
-offset_right = 109.0
-offset_bottom = 96.0
+layout_mode = 0
+offset_left = -24.0
+offset_top = 31.0
+offset_right = 66.0
+offset_bottom = 67.0
 text = "YO"
 label_settings = SubResource("LabelSettings_4inu1")
 
 [node name="PTLabel" type="Label" parent="CardUI"]
 layout_mode = 0
-offset_left = 55.0
-offset_top = 126.0
-offset_right = 109.0
-offset_bottom = 143.0
-text = "YO"
+offset_left = 26.0
+offset_top = 65.0
+offset_right = 66.0
+offset_bottom = 82.0
+text = "1/1"
 label_settings = SubResource("LabelSettings_4inu1")
 horizontal_alignment = 1

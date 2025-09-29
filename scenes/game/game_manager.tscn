@@ -1,24 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://co7kf3cm060w1"]
+[gd_scene load_steps=5 format=3 uid="uid://co7kf3cm060w1"]
 
 [ext_resource type="Script" path="res://scripts/game/GameManager.gd" id="1_1vpux"]
 [ext_resource type="Script" path="res://scripts/game/TurnUI.gd" id="2_noacw"]
 [ext_resource type="Script" path="res://scenes/game/HandDisplay.gd" id="2_s7pfq"]
+[ext_resource type="Script" path="res://scripts/game/CameraController.gd" id="4_l78fy"]
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_1vpux")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="HandContainer" type="HBoxContainer" parent="UI"]
-offset_left = 336.0
-offset_top = 504.0
-offset_right = 860.0
-offset_bottom = 592.0
-
-[node name="Node" type="Node" parent="UI/HandContainer"]
-script = ExtResource("2_s7pfq")
-
 [node name="PlayerInfo" type="Panel" parent="UI"]
+visible = false
 offset_left = 12.0
 offset_top = 440.0
 offset_right = 257.0
@@ -60,9 +53,38 @@ offset_right = 60.0
 offset_bottom = 87.0
 text = "Pass turn"
 
-[node name="Camera2D" type="Camera2D" parent="UI"]
-anchor_mode = 0
+[node name="CurrentPlayerHand" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 170.0
+offset_top = 199.0
+offset_right = 170.0
+offset_bottom = 199.0
+script = ExtResource("2_s7pfq")
+
+[node name="HandContainer" type="HBoxContainer" parent="UI/CurrentPlayerHand"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="OpponentHand" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 248.0
+offset_top = 21.0
+offset_right = 248.0
+offset_bottom = 21.0
+script = ExtResource("2_s7pfq")
+
+[node name="HandContainer" type="HBoxContainer" parent="UI/OpponentHand"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="Board" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+script = ExtResource("4_l78fy")
 
 [connection signal="pressed" from="UI/TurnUI/PassButton" to="UI/TurnUI" method="_on_pass_button_pressed"]
