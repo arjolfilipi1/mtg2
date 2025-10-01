@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://co7kf3cm060w1"]
+[gd_scene load_steps=6 format=3 uid="uid://co7kf3cm060w1"]
 
 [ext_resource type="Script" path="res://scripts/game/GameManager.gd" id="1_1vpux"]
 [ext_resource type="Script" path="res://scripts/game/TurnUI.gd" id="2_noacw"]
-[ext_resource type="Script" path="res://scenes/game/HandDisplay.gd" id="2_s7pfq"]
+[ext_resource type="Script" path="res://scripts/game/HandDisplay.gd" id="2_s7pfq"]
 [ext_resource type="Script" path="res://scripts/game/CameraController.gd" id="4_l78fy"]
+[ext_resource type="Script" path="res://scripts/game/OpponentHandDisplay.gd" id="4_rur1d"]
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_1vpux")
@@ -53,13 +54,21 @@ offset_right = 60.0
 offset_bottom = 87.0
 text = "Pass turn"
 
+[node name="waiting" type="Label" parent="UI/TurnUI"]
+layout_mode = 0
+offset_top = 188.0
+offset_right = 40.0
+offset_bottom = 211.0
+text = "waiting"
+
 [node name="CurrentPlayerHand" type="Control" parent="UI"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 170.0
-offset_top = 199.0
-offset_right = 170.0
-offset_bottom = 199.0
+offset_left = 212.0
+offset_top = 557.0
+offset_right = 212.0
+offset_bottom = 557.0
+mouse_filter = 1
 script = ExtResource("2_s7pfq")
 
 [node name="HandContainer" type="HBoxContainer" parent="UI/CurrentPlayerHand"]
@@ -68,23 +77,36 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="OpponentHand" type="Control" parent="UI"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
-offset_left = 248.0
-offset_top = 21.0
-offset_right = 248.0
-offset_bottom = 21.0
-script = ExtResource("2_s7pfq")
+offset_left = 184.0
+offset_top = 38.0
+offset_right = 184.0
+offset_bottom = 38.0
+mouse_filter = 1
+script = ExtResource("4_rur1d")
 
 [node name="HandContainer" type="HBoxContainer" parent="UI/OpponentHand"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Board" type="Node2D" parent="."]
+[node name="GameWorld" type="Node2D" parent="."]
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Board" type="Node2D" parent="GameWorld"]
+
+[node name="Camera2D" type="Camera2D" parent="GameWorld"]
 anchor_mode = 0
 script = ExtResource("4_l78fy")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(59, 277)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D/CollisionShape2D"]
+self_modulate = Color(1, 0, 1, 1)
+polygon = PackedVector2Array(-30, -31, -30, 43, 44, 44, 44, -32)
 
 [connection signal="pressed" from="UI/TurnUI/PassButton" to="UI/TurnUI" method="_on_pass_button_pressed"]

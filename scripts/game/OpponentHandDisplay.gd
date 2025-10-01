@@ -1,5 +1,5 @@
 extends Control
-class_name HandDisplay
+class_name OpponentsHandDisplay
 
 @onready var hand_container: HBoxContainer = $"../OpponentHand/HandContainer"
 @onready var card_scene = preload("res://scenes/cards/Card.tscn")

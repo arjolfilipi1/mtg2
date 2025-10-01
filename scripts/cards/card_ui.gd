@@ -3,7 +3,7 @@ extends Control
 @onready var name_label = $NameLabel
 @onready var mana_cost_label = $ManaCostLabel
 @onready var type_label = $TypeLabel
-@onready var pt_label = $PTLabel
+@onready var pt_label = $PowerToughness
 
 func update_display(card: Card):
 	name_label.text = card.card_name

@@ -2,12 +2,13 @@ extends Node
 class_name GameManager
 # Add these variables
 @onready var hand_display: HandDisplay = $UI/CurrentPlayerHand
-@onready var opponent_hand_display: HandDisplay = $UI/OpponentHand
+@onready var opponent_hand_display: OpponentsHandDisplay = $UI/OpponentHand
 
 signal phase_changed(new_phase: int)
 signal turn_started(player_index: int)
 signal turn_ended(player_index: int)
-
+@onready var camera_controller: CameraController = $GameWorld/Camera2D
+@onready var board: Node2D = $GameWorld/Board
 @onready var players: Array[Player] = [Player.new(), Player.new()]
 @onready var current_player_index: int = 0
 @onready var current_phase: int = TurnPhases.UNTAP_STEP
@@ -36,7 +37,7 @@ func _process(delta):
 		current_phase_timer -= delta
 		if current_phase_timer <= 0:
 			advance_phase()
-
+	$UI/TurnUI/waiting.text = "Phase: %s" % str(is_waiting_for_response)
 # NEW: Setup hand displays
 func setup_hand_displays():
 	# Setup current player's hand display
